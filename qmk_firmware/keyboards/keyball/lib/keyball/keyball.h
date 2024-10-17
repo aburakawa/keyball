@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Configurations
 
 #ifndef KEYBALL_CPI_DEFAULT
-#    define KEYBALL_CPI_DEFAULT 500
+#    define KEYBALL_CPI_DEFAULT 1500
 #endif
 
 #ifndef KEYBALL_SCROLL_DIV_DEFAULT
@@ -47,6 +47,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifndef KEYBALL_SCROLLSNAP_TENSION_THRESHOLD
 #    define KEYBALL_SCROLLSNAP_TENSION_THRESHOLD 12
+#endif
+
+/// Threshold of mouse movement before layer change occurs
+#ifndef KEYBALL_AUTO_MOUSE_THRESHOLD
+#    define KEYBALL_AUTO_MOUSE_THRESHOLD 2
 #endif
 
 /// Specify SROM ID to be uploaded PMW3360DW (optical sensor).  It will be
@@ -115,6 +120,8 @@ enum keyball_keycodes {
     AML_I50  = QK_KB_11, // Increment automatic mouse layer timeout
     AML_D50  = QK_KB_12, // Decrement automatic mouse layer timeout
 
+    // Custom key combination
+
     // User customizable 32 keycodes.
     KEYBALL_SAFE_RANGE = QK_USER_0,
 };
@@ -158,6 +165,7 @@ typedef struct {
 
     keyball_motion_t this_motion;
     keyball_motion_t that_motion;
+    keyball_motion_t total_motion;
 
     uint8_t cpi_value;
     bool    cpi_changed;
